@@ -1,7 +1,19 @@
 <?php
 
+use App\Http\Controllers\vegetable_function;
+use App\Http\Controllers\vegetable_view;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::controller(vegetable_view::class)->group(function () {
+    Route::get('/','index')->name('index');
+    Route::get('/Sign_up','register');
+    Route::get('/Sign_In','login');
+    Route::get('/email_verify','verify');
+});
+
+Route::controller(vegetable_function::class)->group(function () {
+    Route::post('/Sign_up', 'register')->name('register');
+    Route::post('/Sign_In', 'login')->name('login');
+    Route::post('/email_verify', 'verify')->name('verify');
 });
