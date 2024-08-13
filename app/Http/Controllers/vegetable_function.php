@@ -24,7 +24,7 @@ class vegetable_function extends Controller
         $insert['status'] = 'Pending';
         $user = User::create($insert);
         Mail::to($request->email)->send(new WelcomeMail($user));
-        return redirect('email_verify')->with('email',$request->email);
+        return redirect('login')->with('email',$request->email);
     }
 
     public function verify(Request $request)
@@ -64,8 +64,9 @@ class vegetable_function extends Controller
                 return redirect()->route('index')->with('message', "Login Successfully");
             }
     
-            return redirect()->route('email_verify')->with('message', "Please go to your Gmail to verify your email!");
+            return redirect()->back()->with('message', "Email or password not match!");
         }
+        return redirect()->route("verify")->with('email',$request->email);
     }
     
 }
