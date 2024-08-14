@@ -68,5 +68,11 @@ class vegetable_function extends Controller
         }
         return redirect()->route("verify")->with('email',$request->email);
     }
+
+    public function logout(){
+        Auth::logout();
+        
+        return redirect()->route("index");
+    }
     
 }

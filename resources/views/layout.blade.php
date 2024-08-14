@@ -58,7 +58,10 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">LogOut</a>
+                    <form action="{{ route('logout') }}" method="post">
+                      @csrf
+                      <input type="submit" value="Logout" class="nav-link" style="background: transparent;border:0px;">
+                    </form>
                 </li>
             @else
                 <li class="nav-item">

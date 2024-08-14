@@ -16,4 +16,5 @@ Route::controller(vegetable_function::class)->group(function () {
     Route::post('/Sign_up', 'register')->name('register');
     Route::post('/Sign_In', 'login')->name('login');
     Route::post('/email_verify', 'verify')->name('verify');
+    Route::post('/logout','logout')->name("logout");
 });
