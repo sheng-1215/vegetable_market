@@ -21,6 +21,6 @@
         </b>
     </h2>
 
-    <h4><i><a href="{{ route('verify') }}">Click here to verify ! ! !</a></i></h4>
+    {{-- <h4><i><a href="{{ route('verify') }}">Click here to verify ! ! !</a></i></h4> --}}
 </body>
 </html>

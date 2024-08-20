@@ -14,7 +14,7 @@
   <body>
     <div class="about_section">
       <!--vegetables  section start -->
-      <div class="vegetables_section layout_padding">
+      {{-- <div class="vegetables_section layout_padding">
         <div class="container">
           <div class="image_2"><img src="images/img-2.png"></div>
           <h1 class="about_taital">Our Vegetables</h1>
@@ -127,7 +127,30 @@
           </div>
           <div class="read_bt_1"><a href="#">Read More</a></div>
         </div>
-      </div>
+      </div> --}}
+
+      <div class="vegetables_section layout_padding">
+        <div class="container">
+            <h1 class="about_taital">Our Vegetables</h1>
+            <p class="lorem_text">Browse our fresh vegetables</p>
+            <div class="vegetables_section_2 layout_padding">
+                <div class="row">                               
+                    @foreach ($products as $product)
+                        <div class="col">
+                            <div class="box_section">
+                                <div class="image_4"><img src="{{ $product->p_image }}"></div>
+                                <h2 class="dolor_text">$ &nbsp;{{ $product->p_price }}</h2>
+                                <h2 class="dolor_text">{{ $product->p_name }}</h2>
+                                <p>{{ $product->p_desc }}</p>
+                                <div class="buy_bt_1"><a href="{{ route('products.details', $product->id) }}">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="read_bt_1"><a href="#">Read More</a></div>
+        </div>
+
       </div>
      
   </body>

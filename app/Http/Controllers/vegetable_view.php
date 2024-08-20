@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,9 @@ use Illuminate\Http\Request;
 class vegetable_view extends Controller
 {
     public function index(){
-        return view('index');
+        return view('index',[
+            "products" => Products::all()
+        ]);
     }
     public function register(){
         return view('register');
@@ -19,7 +22,12 @@ class vegetable_view extends Controller
         return view('login');
     }
 
-    public function verify(){
-        return view('verify');
+    public function verify($email){
+        $user = User::where('email', $email)->first();
+        return view('verify',[
+            "user" => $user
+        ]);
     }
+
+
 }

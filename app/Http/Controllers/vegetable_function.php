@@ -24,51 +24,33 @@ class vegetable_function extends Controller
         $insert['status'] = 'Pending';
         $user = User::create($insert);
         Mail::to($request->email)->send(new WelcomeMail($user));
-        return redirect('login')->with('email',$request->email);
+        return redirect()->route('verify', ['email' => $user->email]);
+       
     }
 
-    public function verify(Request $request)
+    public function verify(Request $request,$email)
     {
         date_default_timezone_set('Asia/Kuala_Lumpur');
+        
         $request->validate([
-            'email' => 'required',
             'otp' => 'required|min:6|numeric',
         ]);
     
-        $user = User::where('email', $request->email)->where('OTP', $request->otp)->first();
-        $date = new DateTime();
+        $user = User::where('email', $email)->where('OTP', $request->otp)->first();
+        $date = new DateTime;
         $dateTime = $date->format('Y-m-d H:i:s');
 
         if ($user) {
-            $user->update([
-                'status' => 'Complete',
-                'email_verified_at' => $dateTime,
-            ]);
-            
-            return redirect()->route('login');
+            $user->update(['status' => 'Complete', 'email_verified_at' => $dateTime]);
+
+            Auth::login($user);
+    
+            return redirect()->route("index")->with('message', 'Your email was verified successfully.');
+        } else {
+            return redirect()->back()->with("message","Your OTP is Not match");
         }
     }
-
-    public function login(Request $request)
-    {
-        $login = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:3',
-        ]);
     
-        $user = User::where('email', $login['email'])->first();
-    
-        if ($user && $user->status == "Complete") {
-            if (Auth::attempt($login)) {
-    
-                return redirect()->route('index')->with('message', "Login Successfully");
-            }
-    
-            return redirect()->back()->with('message', "Email or password not match!");
-        }
-        return redirect()->route("verify")->with('email',$request->email);
-    }
-
     public function logout(){
         Auth::logout();
         

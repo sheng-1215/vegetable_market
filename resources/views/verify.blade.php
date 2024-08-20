@@ -21,10 +21,11 @@
                     </div>
                     <div class="card-body">
                         <p class="text-center">Please enter the OTP sent to your email.</p>
-                        <form action="{{ route('verify') }}" method="POST">
+                        <form action="{{ route("verify.email", $user->email) }}" method="POST">
+                            <h1 style="color: red;">{{ session('message') }}</h1>
                             @csrf
+                            <input type="hidden" name="email" value="{{ $user->email }}" readonly>
                             <div class="mb-3">
-                                <input type="hidden" name="email" value="{{ session('email') }}">
                                 <label for="otp" class="form-label">OTP</label>
                                 <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter OTP">
                                 @error('otp')
