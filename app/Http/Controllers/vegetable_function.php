@@ -50,6 +50,29 @@ class vegetable_function extends Controller
             return redirect()->back()->with("message","Your OTP is Not match");
         }
     }
+
+    public function login(Request $request)
+    {
+        $form = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:3',
+        ]);
+    
+        $user = User::where('email', $form['email'])->first();
+    
+        if (Auth::attempt($form)) {
+            if ($user && $user->status == "Complete") {
+                $request->session()->regenerate();
+    
+                return redirect()->route('index')->with('message', "Login Successfully");
+            }
+    
+            return redirect()->route('verify', ['email' => $request->email]);
+        }
+            return back()->withErrors([
+                'email' => 'Email is not valid or password is incorrect',
+            ]);
+    }
     
     public function logout(){
         Auth::logout();

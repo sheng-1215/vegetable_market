@@ -1,3 +1,7 @@
+@extends('layout')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,13 +32,18 @@
                 <form action="{{ route('addcart', ['id' => $product->id]) }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="quantity">Quantity:</label>
-                        <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" oninput="calculateTotal()" required>
-                    </div><br>
-                    
-                    <div class="form-group">
-                        <h3>Price per kg: Rm {{ number_format($product->p_price, 2) }}</h3>
-                        <h3>Total Price: Rm <span id="total_price">0.00</span></h3>
+                        <h3>Price per 1000g: Rm {{ number_format($product->p_price, 2) }}</h3>
+                        <label for="mass">Mass (in grams):</label>
+                        <div class="input-group">
+                            <button type="button" class="btn btn-secondary" onclick="adjustMass(-50)">-50g</button>
+                            <input type="number" id="mass" name="mass" min="100" value="1000">
+                            @error('mass')
+                                <p style="color: red;">{{ $message }}</p>
+                            @enderror
+                            <button type="button" class="btn btn-secondary" onclick="adjustMass(50)">+50g</button>
+                        </div>
+                        <h3>Total Price: Rm <span id="total_price">{{ number_format($product->p_price, 2) }}</span></h3>
+                        <input type="hidden" id="total_price_input" name="price" value="{{ $product->p_price }}">
                     </div><br>
 
                     <button type="submit" class="btn btn-primary">Add to Cart</button>
@@ -44,15 +53,26 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function calculateTotal() {
-            var quantity = parseFloat(document.getElementById('quantity').value);
-            var price = parseFloat("{{ $product->p_price }}");
-            var total = price * quantity;
-            document.getElementById('total_price').innerText = total.toFixed(2);
-        }
-
-        calculateTotal();
-    </script>
 </body>
 </html>
+
+
+<script>
+    function Calculate(price, mass) {
+        let totalPrice = parseFloat(price) * parseFloat(mass);
+        document.getElementById('total_price').innerText = totalPrice.toFixed(2);
+        document.getElementById('total_price_input').value = totalPrice.toFixed(2);
+    }
+
+    function adjustMass(value) {
+        let massInput = document.getElementById('mass');
+        let newMass = parseInt(massInput.value) + value;
+        if (newMass < 1) {
+            newMass = 1;
+        }
+        massInput.value = newMass;
+        Calculate({{ $product->p_price }}, newMass / 1000);
+    }
+</script>
+
+@endsection

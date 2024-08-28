@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>
     <div class="about_section">
@@ -128,7 +129,10 @@
           <div class="read_bt_1"><a href="#">Read More</a></div>
         </div>
       </div> --}}
-
+      {{-- {{ session('email') }} --}}
+      @error('email')
+          <p style="color: red; text-align: center;">{{ $message }}</p>
+      @enderror
       <div class="vegetables_section layout_padding">
         <div class="container">
             <h1 class="about_taital">Our Vegetables</h1>
@@ -139,10 +143,11 @@
                         <div class="col">
                             <div class="box_section">
                                 <div class="image_4"><img src="{{ $product->p_image }}"></div>
-                                <h2 class="dolor_text">$ &nbsp;{{ $product->p_price }}</h2>
+                                <h2 class="dolor_text">Rm{{ $product->p_price }}</h2>
+                                <h1 class="dolor_text_1">{{ $product->p_mass }} g</h1>
                                 <h2 class="dolor_text">{{ $product->p_name }}</h2>
-                                <p>{{ $product->p_desc }}</p>
-                                <div class="buy_bt_1"><a href="{{ route('products.details', $product->id) }}">Add to Cart</a></div>
+                                <div class="buy_bt_1"><a href="{{ route('products.details', $product->id) }}">Add to Cart</a>                                
+                              </div>
                             </div>
                         </div>
                     @endforeach
@@ -156,6 +161,9 @@
   </body>
   </html>
   @endsection
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
   
   

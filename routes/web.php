@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\vegetable_function;
 use App\Http\Controllers\vegetable_view;
+use App\Http\Middleware\CheckProfileComplete;
 use App\Models\Products;
 use Illuminate\Support\Facades\Route;
 
@@ -10,8 +11,10 @@ use Illuminate\Support\Facades\Route;
 Route::controller(vegetable_view::class)->group(function () {
     Route::get('/','index')->name('index');
     Route::get('/Sign_up','register');
-    Route::get('/Sign_In','login');
+    Route::get('/Sign_In', 'login');
     Route::get("/email_verify/{email}",'verify')->name("verify");
+    Route::get('/products/{id}', 'details')->name('products.details')->middleware('auth');
+    Route::get('/information', 'information');
 });
 
 Route::controller(vegetable_function::class)->group(function () {
@@ -22,6 +25,7 @@ Route::controller(vegetable_function::class)->group(function () {
 });
 
 Route::controller(ProductsController::class)->group(function () {
-    Route::get('/products/{id}', 'details')->name('products.details');
-    Route::post('/addcart/{id}', 'addcart')->name('addcart');
+    Route::post('/addcart/{id}', 'addcart')->name('addcart')->middleware(CheckProfileComplete::class);
+    Route::post('/information', 'information')->name('information');
+
 });

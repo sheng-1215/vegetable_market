@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -22,6 +23,10 @@ class User extends Authenticatable
         'OTP',
         'status',
     ];
+
+    public function user(){
+        return $this->hasMany(informations::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,5 +49,6 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+
     }
 }

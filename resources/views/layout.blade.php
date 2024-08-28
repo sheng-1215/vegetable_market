@@ -14,41 +14,38 @@
 <meta name="description" content="">
 <meta name="author" content=""> 
 <!-- bootstrap css -->
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
 <!-- style css -->
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 <!-- Responsive-->
-<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 <!-- fevicon -->
-<link rel="icon" href="images/fevicon.png" type="image/gif" />
+<link rel="icon" href="{{ asset('images/fevicon.png') }}" type="image/gif" />
 <!-- Scrollbar Custom CSS -->
-<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css') }}">
 <!-- Tweaks for older IEs-->
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 <!-- owl stylesheets --> 
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"') }} media="screen">
 </head>
 <body>
   <!--header section start -->
   <div class="header_section">
     <div class="container-fluid">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
+        <div class="logo"><a href="index.html"><img src="{{ asset("images/logo.png") }}"></a></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">HOME</a>
+              <a class="nav-link" href="{{ route('index') }}">HOME</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ route('index') }}">SHOP</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="vegetables.html">VEGETABLES</a>
             </li>
 
             @auth
@@ -64,24 +61,27 @@
                     </form>
                 </li>
             @else
-                <li class="nav-item">
-                    <button type="button" class="nav-link" style="background: transparent;border:0px;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        Sign In
-                    </button>
-                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('login') }}">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('register') }}">Sign Up</a>
+            </li>
             @endauth
           </ul>
-          <form class="form-inline my-2 my-lg-0">
+          {{-- <form class="form-inline my-2 my-lg-0">
             <div class="search_icon"><a href="#"><img src="images/search-icon.png"></a></div>
-          </form>
+          </form> --}}
         </div>
       </nav>
     </div>
   </div>
+  <br><br><br>
   <!--header section end -->
 
   @yield('content')
 
+  <br><br>
   <!--vegetables section end -->
   <!--footer section start -->
   <div class="footer_section layout_padding">

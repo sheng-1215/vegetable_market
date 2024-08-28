@@ -28,6 +28,13 @@ class vegetable_view extends Controller
             "user" => $user
         ]);
     }
+    public function details($id){
+        $product = Products::find($id);
+        return view('products_details', ['product' => $product]);
+    }
 
+    public function information(){
+        return view('information');
+    }
 
 }
