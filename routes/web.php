@@ -15,6 +15,8 @@ Route::controller(vegetable_view::class)->group(function () {
     Route::get("/email_verify/{email}",'verify')->name("verify");
     Route::get('/products/{id}', 'details')->name('products.details')->middleware('auth');
     Route::get('/information', 'information');
+    Route::get('/cart', 'cart')->name('cart')->middleware("auth");
+    Route::get('/profile', 'showProfile')->name('profile')->middleware("auth");
 });
 
 Route::controller(vegetable_function::class)->group(function () {
@@ -27,5 +29,6 @@ Route::controller(vegetable_function::class)->group(function () {
 Route::controller(ProductsController::class)->group(function () {
     Route::post('/addcart/{id}', 'addcart')->name('addcart')->middleware(CheckProfileComplete::class);
     Route::post('/information', 'information')->name('information');
+    Route::delete('/cart/remove/{id}', 'remove')->name('cart.remove')->middleware('auth');
 
 });

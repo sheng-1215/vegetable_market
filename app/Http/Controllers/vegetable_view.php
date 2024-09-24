@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\carts;
+use App\Models\informations;
 use App\Models\Products;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class vegetable_view extends Controller
 {
     public function index(){
+        // $data = carts::all();
+        // $count = count($data);
+        
         return view('index',[
             "products" => Products::all()
+            
         ]);
     }
     public function register(){
@@ -36,5 +43,22 @@ class vegetable_view extends Controller
     public function information(){
         return view('information');
     }
+
+    public function cart() {
+        $cartItems = carts::where('user_id', Auth::id())->get();
+    
+        return view('cart', [
+            "cartItems" => $cartItems,
+            "totalPrice" => carts::where('user_id', Auth::id())->sum('price')
+        ]);
+    }
+
+    public function showProfile(){
+        $profile = informations::with('addresses')->find(Auth::id());
+        return view('profile', [
+            "profile" => $profile
+        ]);
+    }
+    
 
 }

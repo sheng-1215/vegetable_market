@@ -35,7 +35,7 @@ class ProductsController extends Controller
         return redirect()->route('index');
     }
 
-    public function store(Request $request)
+    public function information(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -64,7 +64,20 @@ class ProductsController extends Controller
             'u_id' => Auth::id(),
         ]);
 
-        return redirect()->back()->with('success', 'Information registered successfully!');
+        return redirect()->route('index')->with('success', 'Information saved successfully');
+    }
+
+    public function remove($id)
+    {
+        $cartItem = carts::where('id', $id)->where('user_id', Auth::id())->first();
+
+        if (!$cartItem) {
+            return redirect()->route('cart')->alert('error', 'Item not found in cart');
+        }
+
+        $cartItem->delete();
+
+        return redirect()->route('cart')->with('status', 'Item removed from cart');
     }
 
 }

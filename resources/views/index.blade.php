@@ -1,8 +1,6 @@
 @extends('layout')
-@extends('login')
 @section('content')
-    
-
+  
   <!DOCTYPE html>
   <html lang="en">
   <head>

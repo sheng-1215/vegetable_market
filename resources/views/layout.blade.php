@@ -32,10 +32,10 @@
 </head>
 <body>
   <!--header section start -->
-  <div class="header_section">
+
     <div class="container-fluid">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="logo"><a href="index.html"><img src="{{ asset("images/logo.png") }}"></a></div>
+        <div class="logo"><a href="{{ route('index') }}"><img src="{{ asset("images/logo.png") }}"></a></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -44,15 +44,17 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ route('index') }}">HOME</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('index') }}">SHOP</a>
-            </li>
 
             @auth
+            <li class="nav-item">
+              <a class="nav-link btn btn-primary position-relative" href="{{ route('cart') }}">Cart
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{ $cartCount=count(auth()->user()->cart) }}
+                  <span class="visually-hidden">unread messages</span>
+              </a>
+            </li>
                 <li class="nav-item">
-                    <button type="button" class="nav-link" style="background: transparent;border:0px;">
-                        {{ auth()->user()->email }}
-                    </button>
+                    <a class="nav-link" href="{{ route('profile') }}"> {{ auth()->user()->email }} </a>
                 </li>
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="post">
@@ -76,12 +78,11 @@
       </nav>
     </div>
   </div>
-  <br><br><br>
   <!--header section end -->
 
   @yield('content')
 
-  <br><br>
+  <!--vegetables section start -->
   <!--vegetables section end -->
   <!--footer section start -->
   <div class="footer_section layout_padding">

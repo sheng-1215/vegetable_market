@@ -34,6 +34,12 @@ class informations extends Authenticatable
         return $this->belongsTo(addresses::class, 'id');
     }
     
+    // In Information.php model
+public function addresses()
+{
+    return $this->hasMany(addresses::class, 'id');
+}
+
 
 
 }
