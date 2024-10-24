@@ -128,6 +128,36 @@
         </div>
       </div> --}}
       {{-- {{ session('email') }} --}}
+      @session('order')
+          <script>
+            alert("{{ session('order') }}")
+          </script>
+      @endsession
+      @session('information')
+      <script>
+        alert("{{ session('information') }}")
+      </script>
+  @endsession
+  @session('status')
+  <script>
+    alert("{{ session('status') }}")
+  </script>
+@endsession
+@session('checkout')
+<script>
+  alert("{{ session('checkout') }}")
+</script>
+@endsession
+      @session('verify')
+      <script>
+        alert("{{ session('verify') }}")
+      </script>
+  @endsession
+  @session('login')
+  <script>
+    alert("{{ session('login') }}")
+  </script>
+@endsession
       @error('email')
           <p style="color: red; text-align: center;">{{ $message }}</p>
       @enderror

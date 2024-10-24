@@ -1,3 +1,7 @@
+@extends('layout')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,6 +96,9 @@
                         <div class="alert alert-danger" role="alert">
                             Profile information not found.
                         </div>
+                        <form action="{{ route('information.create') }}" >
+                            <button type="submit" class="btn btn-primary">Create Profile</button>
+                        </form>
                         @endif
                     </div>
                 </div>
@@ -102,3 +109,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+@endsection

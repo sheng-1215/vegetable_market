@@ -45,11 +45,16 @@ class vegetable_view extends Controller
     }
 
     public function cart() {
-        $cartItems = carts::where('user_id', Auth::id())->get();
+        $cartItems = carts::join('products', 'carts.p_id', '=', 'products.id')
+        ->where('carts.user_id', Auth::id())
+        ->where('c_status', 'cart')
+        ->get();
     
         return view('cart', [
             "cartItems" => $cartItems,
-            "totalPrice" => carts::where('user_id', Auth::id())->sum('price')
+            "totalPrice" => carts::where('user_id', Auth::id())
+            ->where('c_status', 'cart')
+            ->sum('price')
         ]);
     }
 
@@ -59,6 +64,22 @@ class vegetable_view extends Controller
             "profile" => $profile
         ]);
     }
-    
 
+    public function orderlist()
+    {
+        $pendingOrders = carts::join('products', 'carts.p_id', '=', 'products.id')
+            ->where('carts.user_id', Auth::id())
+            ->where('c_status', 'Pending')
+            ->get();
+    
+        $completedOrders = carts::join('products', 'carts.p_id', '=', 'products.id')
+            ->join('ordernumbers', 'ordernumbers.id', '=', 'carts.c_id')
+            ->where('carts.user_id', Auth::id())
+            ->where('c_status', 'Complete')
+            ->get();
+            
+        $pendingTotal = $pendingOrders->sum('price');
+    
+        return view('orderlist', compact('pendingOrders', 'completedOrders', 'pendingTotal'));
+    }
 }

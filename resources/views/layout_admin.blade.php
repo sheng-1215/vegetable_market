@@ -29,65 +29,70 @@
 <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"') }} media="screen">
-
 </head>
 <body>
   <!--header section start -->
 
-  <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="logo">
-        <a href="{{ route('index') }}"><img src="{{ asset('images/logo.png') }}"></a>
-        <a class="nav-link" href="{{ route('dashboard') }}" >
-          <span class="badge badge-danger">Admin</span> 
-        </a>
-      </div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('index') }}">HOME</a>
-          </li>
-  
-          <!-- Admin Button with Username and Password -->
-  
-          @auth
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="logo"><a href="{{ route('index') }}"><img src="{{ asset("images/logo.png") }}"></a>
+          <li class="nav-item admin-section">
+            <a class="nav-link" href="{{ route('dashboard') }}">
+              <span class="badge badge-danger">Admin</span> 
+              <span>Username: <strong>weisheng@admin.com</strong> | Password: <strong>123</strong></span>
+            </a>
+          </li></div>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('cart') }}">Cart</a>
+              <a class="nav-link" href="{{ route('dashboard') }}">HOME</a>
             </li>
+
+            @auth
+            {{-- <li class="nav-item">
+              <a class="nav-link" href="{{ route('cart') }}">Cart
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{ $cartCount=count(auth()->user()->cart) }}
+              </a>
+            </li> --}}
+            {{-- <li class="nav-item">
+              <a class="nav-link" href="{{ route('orderlist') }}">Order
+              </a>
+            </li> --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile') }}"> {{ auth()->user()->email }} </a>
+                </li> --}}
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="post">
+                      @csrf
+                      <input type="submit" value="Logout" class="nav-link" style="background: transparent;border:0px;">
+                    </form>
+                </li>
+            @else
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('orderlist') }}">Order</a>
+              <a class="nav-link" href="{{ route('admin.loginpage') }}">Sign In</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('profile') }}">{{ auth()->user()->email }}</a>
-            </li>
-            <li class="nav-item">
-              <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <input type="submit" value="Logout" class="nav-link" style="background: transparent;border:0px;">
-              </form>
-            </li>
-          @else
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('login') }}">Sign In</a>
-            </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a class="nav-link" href="{{ route('register') }}">Sign Up</a>
-            </li>
-          @endauth
-        </ul>
-      </div>
-    </nav>
+            </li> --}}
+            @endauth
+          </ul>
+          {{-- <form class="form-inline my-2 my-lg-0">
+            <div class="search_icon"><a href="#"><img src="images/search-icon.png"></a></div>
+          </form> --}}
+        </div>
+      </nav>
+    </div>
   </div>
-  
   <!--header section end -->
 
   @yield('content')
 
-  <!--vegetables section start -->
+  {{-- <!--vegetables section start -->
   <!--vegetables section end -->
   <!--footer section start -->
   <div class="footer_section layout_padding">
@@ -118,7 +123,7 @@
   <!--copyright section start -->
   <div class="copyright_section">
     <p class="copyright_text">Copyright 2023 All Right Reserved <a href="https://html.design">Free html  Templates</a></p>
-  </div>
+  </div> --}}
   <!--copyright section end -->
   <!-- Javascript files-->
   <script src="js/jquery.min.js"></script>

@@ -12,15 +12,15 @@ class carts extends Model
     use HasFactory;
 
     protected $table = 'carts';
-    protected $fillable = ['user_id', 'p_id', 'mass','price'];
+    protected $fillable = ['user_id', 'p_id', 'mass','price','c_status','c_id'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'id');
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Products::class, 'id');
-    }
+    // public function product()
+    // {
+    //     return $this->belongsTo(Products::class, 'id');
+    // }
 }

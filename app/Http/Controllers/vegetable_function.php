@@ -24,7 +24,7 @@ class vegetable_function extends Controller
         $insert['status'] = 'Pending';
         $user = User::create($insert);
         Mail::to($request->email)->send(new WelcomeMail($user));
-        return redirect()->route('verify', ['email' => $user->email]);
+        return redirect()->route('verify', ['email' => $user->email])->with('register', 'Please verify your email address to complete registration.');
        
     }
 
@@ -45,7 +45,7 @@ class vegetable_function extends Controller
 
             Auth::login($user);
     
-            return redirect()->route("index")->with('message', 'Your email was verified successfully.');
+            return redirect()->route("index")->with('verify', 'Your email was verified successfully.');
         } else {
             return redirect()->back()->with("message","Your OTP is Not match");
         }
@@ -64,7 +64,7 @@ class vegetable_function extends Controller
             if ($user && $user->status == "Complete") {
                 $request->session()->regenerate();
     
-                return redirect()->route('index')->with('message', "Login Successfully");
+                return redirect()->route('index')->with('login', "Login Successfully");
             }
     
             return redirect()->route('verify', ['email' => $request->email]);

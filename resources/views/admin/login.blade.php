@@ -1,8 +1,6 @@
-@extends('layout')
+@extends('layout_admin')
 
-@section('content')\
-
-<br>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +16,12 @@
     </style>
 </head>
 <body>
+
+    @session('email')
+        <script>
+            alert("{{ session('email') }}");
+        </script>
+    @endsession
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -26,7 +30,7 @@
                         <h3>Login</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('login') }}" method="post">
+                        <form action="{{ route('admin.loginfunction') }}" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
@@ -46,9 +50,9 @@
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                     </div>
-                    <div class="card-footer text-center">
+                    {{-- <div class="card-footer text-center">
                         <small>Already have an account? <a href="{{ route('register') }}">Register</a></small>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -57,6 +61,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-<br><br>
 
 @endsection

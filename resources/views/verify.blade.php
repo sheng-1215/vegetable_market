@@ -12,6 +12,11 @@
     </style>
 </head>
 <body>
+    @session('register')
+    <script>
+      alert("{{ session('register') }}")
+    </script>
+    @endsession
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
