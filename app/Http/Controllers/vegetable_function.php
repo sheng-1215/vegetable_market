@@ -8,27 +8,27 @@ use DateTime;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
 
 class vegetable_function extends Controller
 {   
    public function register(Request $request){
         $rand = rand(100000,999999);
         $insert = $request->validate([
-        "email"=>["required",Rule::unique("users","email")],
-        "password"=>["required","confirmed",'min:3'],
+            "email" => ["required", Rule::unique("users", "email")],
+            "password" => ["required", "confirmed", "min:3"],
         ]);
 
+        $insert['password'] = Hash::make($insert['password']);
         $insert['OTP'] = $rand;
         $insert['status'] = 'Pending';
         $user = User::create($insert);
         Mail::to($request->email)->send(new WelcomeMail($user));
         return redirect()->route('verify', ['email' => $user->email])->with('register', 'Please verify your email address to complete registration.');
-       
     }
 
-    public function verify(Request $request,$email)
+    public function verify(Request $request, $email)
     {
         date_default_timezone_set('Asia/Kuala_Lumpur');
         
@@ -47,7 +47,7 @@ class vegetable_function extends Controller
     
             return redirect()->route("index")->with('verify', 'Your email was verified successfully.');
         } else {
-            return redirect()->back()->with("message","Your OTP is Not match");
+            return redirect()->back()->with("message", "Your OTP is Not match");
         }
     }
 
@@ -79,5 +79,4 @@ class vegetable_function extends Controller
         
         return redirect()->route("index");
     }
-    
 }
