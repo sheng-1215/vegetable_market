@@ -16,17 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create admin user
-        User::factory()->create([
-            'email' => 'weisheng@gmail.com',
-            'password' => Hash::make('admin123'), // Set a default password (e.g., admin123)
-            'OTP' => 123456,
-            'status' => 'Active', // Admin status
-            'email_verified_at' => now(), // Email verified
-        ]);
-
-        // Create a test user (optional, as per your existing code)
-        User::factory()->create([
-            'email' => 'test@example.com',
+        User::create([
+            'email' => 'weisheng@admin.com',
+            'password' => Hash::make('admin123'), // Hashed password
+            'OTP' => 123456, // Default OTP
+            'status' => 'Complete', // Admin status
+            'email_verified_at' => now(), // Email verification timestamp
         ]);
 
         // Seed products
