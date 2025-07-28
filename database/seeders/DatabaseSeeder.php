@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // Create admin user
         User::create([
             'email' => 'weisheng@admin.com',
-            'password' => Hash::make('admin123'), // Hashed password
+            'password' => Hash::make('123'), // Hashed password
             'OTP' => 123456, // Default OTP
             'status' => 'Complete', // Admin status
             'email_verified_at' => now(), // Email verification timestamp
