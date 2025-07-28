@@ -23,6 +23,7 @@ class vegetable_function extends Controller
         $insert['password'] = Hash::make($insert['password']);
         $insert['OTP'] = $rand;
         $insert['status'] = 'Pending';
+        dd($insert);
         $user = User::create($insert);
         Mail::to($request->email)->send(new WelcomeMail($user));
         return redirect()->route('verify', ['email' => $user->email])->with('register', 'Please verify your email address to complete registration.');
